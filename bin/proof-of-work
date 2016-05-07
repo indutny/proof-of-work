@@ -24,7 +24,7 @@ if (process.argv[2] === 'verify') {
   });
 
   const check = (hex) => {
-    const nonce = Buffer.from ?
+    const nonce = Buffer.hasOwnProperty('from') ?
         Buffer.from(hex, 'hex') : new Buffer(hex, 'hex');
 
     process.exit(verifier.check(nonce) ? 0 : 1);
