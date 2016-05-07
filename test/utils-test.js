@@ -6,10 +6,13 @@ const Buffer = require('buffer').Buffer;
 const pow = require('../');
 const utils = pow.utils;
 
+const fixtures = require('./fixtures');
+const parseHex = fixtures.parseHex;
+
 describe('POW/Utils', () => {
   describe('complexity', () => {
     const check = (hex, complexity) => {
-      return utils.checkComplexity(Buffer.from(hex, 'hex'), complexity);
+      return utils.checkComplexity(parseHex(hex, 'hex'), complexity);
     };
     it('should work on complexity=0', () => {
       assert(check('ffff', 0));

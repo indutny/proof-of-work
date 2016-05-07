@@ -7,6 +7,9 @@ const pow = require('../');
 const utils = pow.utils;
 const Verifier = pow.Verifier;
 
+const fixtures = require('./fixtures');
+const parseHex = fixtures.parseHex;
+
 describe('POW/Verifier', () => {
   let verifier;
 
@@ -23,7 +26,7 @@ describe('POW/Verifier', () => {
   });
 
   const check = (hex) => {
-    return verifier.check(Buffer.from(hex, 'hex'));
+    return verifier.check(parseHex(hex, 'hex'));
   };
 
   // 81143bdcac14d45a7b602f388aa6fcf234e5b97cd7634e3b58d93d24969b37cc

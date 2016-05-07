@@ -6,6 +6,12 @@ const Buffer = require('buffer').Buffer;
 const pow = require('../');
 const Bloom = pow.Bloom;
 
+const fixtures = require('./fixtures');
+const parseHex = fixtures.parseHex;
+
+const k1 = parseHex('abcd');
+const k2 = parseHex('beef');
+
 describe('POW/Bloom', () => {
   let bloom;
 
@@ -18,21 +24,21 @@ describe('POW/Bloom', () => {
   });
 
   it('should find value that is present', () => {
-    bloom.add(Buffer.from('hello'));
+    bloom.add(k1);
 
-    assert(bloom.test(Buffer.from('hello')));
+    assert(bloom.test(k1));
   });
 
   it('should not find value that is not present', () => {
-    bloom.add(Buffer.from('hello'));
+    bloom.add(k1);
 
-    assert(!bloom.test(Buffer.from('ohai')));
+    assert(!bloom.test(k2));
   });
 
   it('should reset filter', () => {
-    bloom.add(Buffer.from('hello'));
+    bloom.add(k1);
     bloom.reset();
 
-    assert(!bloom.test(Buffer.from('hello')));
+    assert(!bloom.test(k1));
   });
 });
