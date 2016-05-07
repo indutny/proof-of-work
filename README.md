@@ -46,7 +46,7 @@ verifier.verify(nonce);
 $ npm install -g proof-of-work
 
 $ proof-of-work -h
-Usage: proof-of-work <complexity>                 ,- generate nonce
+Usage: proof-of-work <complexity>                 - generate nonce
        proof-of-work verify <complexity> (nonce)? - verify nonce
 
 $ proof-of-work 13
