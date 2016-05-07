@@ -1,0 +1,34 @@
+{
+  "name": "proof-of-work",
+  "version": "1.0.0",
+  "description": "SHA256 + Bloom filter proof of work",
+  "main": "lib/pow.js",
+  "bin": {
+    "proof-of-work": "bin/proof-of-work"
+  },
+  "scripts": {
+    "test": "mocha --reporter=spec test/*-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/indutny/proof-of-work.git"
+  },
+  "keywords": [
+    "proof",
+    "of",
+    "work",
+    "sha256",
+    "bloom"
+  ],
+  "author": "Fedor Indutny <fedor@indutny.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indutny/proof-of-work/issues"
+  },
+  "homepage": "https://github.com/indutny/proof-of-work#readme",
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+  }
+}

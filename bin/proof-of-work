@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+'use const';
+
+const path = require('path');
+const Buffer = require('buffer').Buffer;
+
+const pow = require('../');
+
+const usage = () => {
+  const _ = path.basename(process.argv[1]);
+  console.error(`Usage: ${_} <complexity>                 - generate nonce\n` +
+                `       ${_} verify <complexity> (nonce)? - verify nonce`);
+  process.exit(1);
+};
+
+if (process.argv[2] === 'verify') {
+  if (!/^\d+$/.test(process.argv[3]))
+    return usage();
+
+  const verifier = new pow.Verifier({
+    size: 1024,
+    n: 1,
+    complexity: process.argv[3] | 0
+  });
+
+  const check = (nonce) => {
+    process.exit(verifier.check(Buffer.from(nonce, 'hex')) ? 0 : 1);
+  };
+
+  if (process.argv[4]) {
+    if (!/^[0-9a-f]+$/i.test(process.argv[4]))
+      return usage();
+
+    return check(process.argv[4]);
+  }
+
+  let nonce = '';
+  process.stdin.on('data', (chunk) => {
+    nonce += chunk;
+  });
+  process.stdin.once('end', () => {
+    check(nonce);
+  });
+
+  return;
+}
+
+if (!/^\d+$/.test(process.argv[2]))
+  return usage();
+
+const solver = new pow.Solver();
+
+process.stdout.write(solver.solve(process.argv[2] | 0).toString('hex'));
