@@ -81,12 +81,13 @@ Timestamp MUST be equal to number of milliseconds since
 Verifier has two Bloom filters: current and previous, and operates using
 following algorithm:
 
-1. Check that timestamp is within validity range:
+1. Check that `8 < nonce.length <= 32` (byte length)
+2. Check that timestamp is within validity range:
    `Math.abs(timestamp - Date.now()) <= validity`
-2. Look up `nonce` in both Bloom filters. If present in any of them - fail
-3. Compute `SHA256(nonce)` and check that `N = complexity` most-significant bits
+3. Look up `nonce` in both Bloom filters. If present in any of them - fail
+4. Compute `SHA256(nonce)` and check that `N = complexity` most-significant bits
    (in Big Endian encoding) are zero
-4. Add `nonce` to the current Bloom filter
+5. Add `nonce` to the current Bloom filter
 
 `verifier.reset()` copies current Bloom filter to previous, and resets current
 Bloom filter.
