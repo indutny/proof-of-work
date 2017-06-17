@@ -53,10 +53,10 @@ Usage: proof-of-work <complexity>                 - generate nonce
        proof-of-work verify <complexity> (nonce)? - verify nonce
 
 $ proof-of-work 13
-2808fde24c9104d97f58a604cafa6e8db6661f44b4caf9dc311cbb8140648447
+0000015cb77175568057cdbe
 
 $ proof-of-work verify 13 \
-    2808fde24c9104d97f58a604cafa6e8db6661f44b4caf9dc311cbb8140648447 && \
+    0000015cb77175568057cdbe && \
     echo success
 success
 
