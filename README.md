@@ -32,7 +32,9 @@ const verifier = new pow.Verifier({
   // target complexity
   complexity: 19,
 
-  // **optional** required nonce prefix
+  // **recommended, but optional** nonce prefix
+  // It is highly suggested to use unique nonce prefix for your application
+  // to avoid nonce-reuse attack
   prefix: Buffer.from('abcd', 'hex'),
 
   // nonce validity time (default: one minute)
