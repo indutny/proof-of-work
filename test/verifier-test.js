@@ -7,9 +7,6 @@ const pow = require('../');
 const utils = pow.utils;
 const Verifier = pow.Verifier;
 
-const fixtures = require('./fixtures');
-const parseHex = fixtures.parseHex;
-
 describe('POW/Verifier', () => {
   let verifier;
 
@@ -26,17 +23,18 @@ describe('POW/Verifier', () => {
   });
 
   const check = (hex) => {
-    return verifier.check(parseHex(hex, 'hex'));
+    return verifier.check(Buffer.from(hex, 'hex'));
   };
 
-  const nonce = () => {
+  const nonce = (prefix) => {
     const solver = new pow.Solver();
 
-    return solver.solve(19);
+    return solver.solve(19, prefix);
   };
 
   const nonce1 = nonce();
   const nonce2 = nonce();
+  const prefixedNonce = nonce(Buffer.from('deadbeef', 'hex'));
   const invalid =
       '81143bdcac14d45a7b602f388aa6fcf234e5b97cd7634e3b58d93d24969b37cc';
 
@@ -75,5 +73,27 @@ describe('POW/Verifier', () => {
 
   it('should not allow stale nonce', () => {
     assert(!check(invalid));
+  });
+
+  it('should check prefix', () => {
+    assert(!check(prefixedNonce));
+
+    const verifier1 = new Verifier({
+      size: 1024,
+      n: 16,
+      complexity: 19,
+      prefix: Buffer.from('deadbeef', 'hex')
+    });
+
+    assert(verifier1.check(prefixedNonce));
+
+    const verifier2 = new Verifier({
+      size: 1024,
+      n: 16,
+      complexity: 19,
+      prefix: Buffer.from('abbadead', 'hex')
+    });
+
+    assert(!verifier2.check(prefixedNonce));
   });
 });

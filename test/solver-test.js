@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('assert');
+const crypto = require('crypto');
 const Buffer = require('buffer').Buffer;
 
 const pow = require('../');
@@ -11,7 +12,9 @@ describe('POW/Solver', () => {
   let solver = new Solver();
 
   const check = (complexity) => {
-    return utils.checkComplexity(solver.solve(complexity), complexity);
+    const nonce = solver.solve(complexity);
+    const hash = crypto.createHash('sha256').update(nonce).digest();
+    assert(utils.checkComplexity(hash, complexity));
   };
 
   it('should find nonce with complexity=0', () => {
@@ -28,5 +31,13 @@ describe('POW/Solver', () => {
 
   it('should find nonce with complexity=12', () => {
     check(12);
+  });
+
+  it('should find nonce with complexity=12 and prefix=abcd', () => {
+    const nonce = solver.solve(12, Buffer.from('abcd', 'hex'));
+    const hash = crypto.createHash('sha256').update(nonce).digest();
+    assert(utils.checkComplexity(hash, 12));
+
+    assert.equal(nonce.slice(0, 2).toString('hex'), 'abcd');
   });
 });

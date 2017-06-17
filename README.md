@@ -12,8 +12,9 @@ const pow = require('proof-of-work');
 
 const solver = new pow.Solver();
 
-// complexity=13
-const nonce = solver.solve(13);
+// complexity=13 prefix=abcd
+const prefix = Buffer.from('abcd', 'hex');
+const nonce = solver.solve(13, /* optional */ prefix);
 console.log(nonce);
 ```
 
@@ -30,6 +31,9 @@ const verifier = new pow.Verifier({
 
   // target complexity
   complexity: 19,
+
+  // **optional** required nonce prefix
+  prefix: Buffer.from('abcd', 'hex'),
 
   // nonce validity time (default: one minute)
   validity: 60000
@@ -49,8 +53,8 @@ verifier.verify(nonce);
 $ npm install -g proof-of-work
 
 $ proof-of-work -h
-Usage: proof-of-work <complexity>                 - generate nonce
-       proof-of-work verify <complexity> (nonce)? - verify nonce
+Usage: proof-of-work [prefix] <complexity>                - generate nonce
+       proof-of-work verify [prefix] <complexity> [nonce] - verify nonce
 
 $ proof-of-work 20
 0000015cb7756da0812e3b723dcdcfbd
@@ -72,7 +76,7 @@ failure
 The generated nonce must have following structure:
 
 ```
-[ Unsigned 64-bit Big Endian timestamp ] [ ... random bytes ]
+[ prefix ] [ Unsigned 64-bit Big Endian timestamp ] [ ... random bytes ]
 ```
 
 Timestamp MUST be equal to number of milliseconds since
@@ -81,13 +85,14 @@ Timestamp MUST be equal to number of milliseconds since
 Verifier has two Bloom filters: current and previous, and operates using
 following algorithm:
 
-1. Check that `8 < nonce.length <= 32` (byte length)
-2. Check that timestamp is within validity range:
+1. Check that `8 < (nonce.length - prefix.length) <= 32` (byte length)
+2. Check prefix if any was configured
+3. Check that timestamp is within validity range:
    `Math.abs(timestamp - Date.now()) <= validity`
-3. Look up `nonce` in both Bloom filters. If present in any of them - fail
-4. Compute `SHA256(nonce)` and check that `N = complexity` most-significant bits
+4. Look up `nonce` in both Bloom filters. If present in any of them - fail
+5. Compute `SHA256(nonce)` and check that `N = complexity` most-significant bits
    (in Big Endian encoding) are zero
-5. Add `nonce` to the current Bloom filter
+6. Add `nonce` to the current Bloom filter
 
 `verifier.reset()` copies current Bloom filter to previous, and resets current
 Bloom filter.

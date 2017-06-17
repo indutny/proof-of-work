@@ -6,11 +6,8 @@ const Buffer = require('buffer').Buffer;
 const pow = require('../');
 const Bloom = pow.Bloom;
 
-const fixtures = require('./fixtures');
-const parseHex = fixtures.parseHex;
-
-const k1 = parseHex('abcd');
-const k2 = parseHex('beef');
+const k1 = Buffer.from('abcd', 'hex');
+const k2 = Buffer.from('beef', 'hex');
 
 describe('POW/Bloom', () => {
   let bloom;
