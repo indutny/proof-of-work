@@ -52,11 +52,11 @@ $ proof-of-work -h
 Usage: proof-of-work <complexity>                 - generate nonce
        proof-of-work verify <complexity> (nonce)? - verify nonce
 
-$ proof-of-work 13
-0000015cb77175568057cdbe
+$ proof-of-work 20
+0000015cb7756da0812e3b723dcdcfbd
 
-$ proof-of-work verify 13 \
-    0000015cb77175568057cdbe && \
+$ proof-of-work verify 20 \
+    0000015cb7756da0812e3b723dcdcfbd && \
     echo success
 success
 
