@@ -101,7 +101,7 @@ Bloom filter.
 
 ## Complexity
 
-Here is a chart of average time to solution vs target complexity:
+Here is a chart of average time in seconds to solution vs target complexity:
 
 ![timing][0]
 
