@@ -6,6 +6,10 @@
   "bin": {
     "proof-of-work": "bin/proof-of-work"
   },
+  "files": [
+    "lib/",
+    "bin/",
+  ],
   "scripts": {
     "test": "mocha --reporter=spec test/*-test.js"
   },
