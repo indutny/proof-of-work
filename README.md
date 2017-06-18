@@ -78,7 +78,7 @@ failure
 The generated nonce must have following structure:
 
 ```
-[ prefix ] [ Unsigned 64-bit Big Endian timestamp ] [ ... random bytes ]
+[ Unsigned 64-bit Big Endian timestamp ] [ ... random bytes ]
 ```
 
 Timestamp MUST be equal to number of milliseconds since
@@ -92,8 +92,8 @@ following algorithm:
 3. Check that timestamp is within validity range:
    `Math.abs(timestamp - Date.now()) <= validity`
 4. Look up `nonce` in both Bloom filters. If present in any of them - fail
-5. Compute `SHA256(nonce)` and check that `N = complexity` most-significant bits
-   (in Big Endian encoding) are zero
+5. Compute `SHA256(prefix ++ nonce)` and check that `N = complexity`
+   most-significant bits (in Big Endian encoding) are zero
 6. Add `nonce` to the current Bloom filter
 
 `verifier.reset()` copies current Bloom filter to previous, and resets current
