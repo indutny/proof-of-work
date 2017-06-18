@@ -99,6 +99,12 @@ following algorithm:
 `verifier.reset()` copies current Bloom filter to previous, and resets current
 Bloom filter.
 
+## Complexity
+
+Here is a chart of average time to solution vs target complexity:
+
+![timing][0]
+
 ## LICENSE
 
 This software is licensed under the MIT License.
@@ -123,3 +129,5 @@ NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[0]: https://raw.githubusercontent.com/indutny/proof-of-work/master/images/pow.png
