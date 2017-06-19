@@ -1,5 +1,5 @@
 # proof-of-work
-[![Build Status](https://secure.travis-ci.org/indutny/proof-of-work.png)](http://travis-ci.org/indutny/proof-of-work)
+[![Build Status](https://secure.travis-ci.org/indutny/proof-of-work.svg)](http://travis-ci.org/indutny/proof-of-work)
 [![NPM version](https://badge.fury.io/js/proof-of-work.svg)](http://badge.fury.io/js/proof-of-work)
 
 Proof of work based on SHA256 and Bloom filter.
