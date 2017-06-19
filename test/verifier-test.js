@@ -96,4 +96,12 @@ describe('POW/Verifier', () => {
 
     assert(!verifier2.check(prefixedNonce));
   });
+
+  it('should fail on too short nonce', () => {
+    assert(!verifier.check(Buffer.alloc(7)));
+  });
+
+  it('should fail on too long nonce', () => {
+    assert(!verifier.check(Buffer.alloc(33)));
+  });
 });
