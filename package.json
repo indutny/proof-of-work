@@ -1,6 +1,6 @@
 {
   "name": "proof-of-work",
-  "version": "3.0.4-rc0",
+  "version": "3.0.4",
   "description": "SHA256 + Bloom filter proof of work",
   "main": "lib/pow.js",
   "bin": {
