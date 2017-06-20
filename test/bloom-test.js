@@ -1,4 +1,5 @@
 'use strict';
+/* global describe it beforeEach afterEach */
 
 const assert = require('assert');
 const Buffer = require('buffer').Buffer;

@@ -11,7 +11,10 @@
     "bin"
   ],
   "scripts": {
-    "test": "mocha --reporter=spec test/*-test.js"
+    "test": "npm run test-node && npm run test-browser && npm run lint",
+    "test-node": "mocha --reporter=spec test/*-test.js",
+    "test-browser": "TEST_ENV=browser mocha --reporter=spec test/*-test.js",
+    "lint": "eslint lib/*.js lib/**/*.js lib/**/**/*.js test/*.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +35,7 @@
   "homepage": "https://github.com/indutny/proof-of-work#readme",
   "devDependencies": {
     "benchmark": "^2.1.4",
+    "eslint": "^4.0.0",
     "mocha": "^2.4.5"
   },
   "dependencies": {
@@ -39,7 +43,6 @@
     "minimalistic-assert": "^1.0.0"
   },
   "browser": {
-    "crypto": false,
-    "buffer": false
+    "./lib/pow/utils/index.js": "./lib/pow/utils/browser.js"
   }
 }

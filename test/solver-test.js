@@ -1,8 +1,7 @@
 'use strict';
+/* global describe it */
 
 const assert = require('assert');
-const crypto = require('crypto');
-const Buffer = require('buffer').Buffer;
 
 const pow = require('../');
 const utils = pow.utils;

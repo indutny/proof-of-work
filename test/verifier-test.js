@@ -1,10 +1,10 @@
 'use strict';
+/* global describe it beforeEach afterEach */
 
 const assert = require('assert');
 const Buffer = require('buffer').Buffer;
 
 const pow = require('../');
-const utils = pow.utils;
 const Verifier = pow.Verifier;
 
 describe('POW/Verifier', () => {
