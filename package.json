@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/indutny/proof-of-work#readme",
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "mocha": "^2.4.5"
   },
   "dependencies": {
