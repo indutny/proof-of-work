@@ -34,9 +34,11 @@
     "mocha": "^2.4.5"
   },
   "dependencies": {
-    "hash.js": "^1.0.3"
+    "hash.js": "^1.0.3",
+    "minimalistic-assert": "^1.0.0"
   },
   "browser": {
-    "crypto": false
+    "crypto": false,
+    "buffer": false
   }
 }

@@ -13,7 +13,7 @@ describe('POW/Solver', () => {
 
   const check = (complexity) => {
     const nonce = solver.solve(complexity);
-    const hash = crypto.createHash('sha256').update(nonce).digest();
+    const hash = utils.hash(nonce);
     assert(utils.checkComplexity(hash, complexity));
   };
 
