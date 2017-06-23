@@ -5,7 +5,11 @@ const assert = require('assert');
 const Buffer = require('buffer').Buffer;
 
 const pow = require('../');
+const utils = pow.utils;
 const Verifier = pow.Verifier;
+
+const COMPLEXITY = 16;
+const HIGH_COMPLEXITY = 18;
 
 describe('POW/Verifier', () => {
   let verifier;
@@ -14,7 +18,7 @@ describe('POW/Verifier', () => {
     verifier = new Verifier({
       size: 1024,
       n: 16,
-      complexity: 19
+      complexity: COMPLEXITY
     });
   });
 
@@ -22,18 +26,27 @@ describe('POW/Verifier', () => {
     verifier = null;
   });
 
-  const check = (hex) => {
-    return verifier.check(Buffer.from(hex, 'hex'));
+  const check = (hex, complexity) => {
+    return verifier.check(Buffer.from(hex, 'hex'), complexity);
   };
 
-  const nonce = (prefix) => {
+  const nonce = (prefix, complexity) => {
     const solver = new pow.Solver();
 
-    return solver.solve(19, prefix);
+    complexity = complexity || COMPLEXITY;
+
+    for (;;) {
+      const nonce = solver.solve(complexity, prefix);
+
+      // Just for the purpose of testing
+      if (!utils.checkComplexity(utils.hash(nonce, prefix), complexity + 1))
+        return nonce;
+    }
   };
 
   const nonce1 = nonce();
   const nonce2 = nonce();
+  const complexNonce = nonce(null, HIGH_COMPLEXITY);
   const prefixedNonce = nonce(Buffer.from('deadbeef', 'hex'));
   const invalid =
       '81143bdcac14d45a7b602f388aa6fcf234e5b97cd7634e3b58d93d24969b37cc';
@@ -81,7 +94,7 @@ describe('POW/Verifier', () => {
     const verifier1 = new Verifier({
       size: 1024,
       n: 16,
-      complexity: 19,
+      complexity: COMPLEXITY,
       prefix: Buffer.from('deadbeef', 'hex')
     });
 
@@ -90,11 +103,20 @@ describe('POW/Verifier', () => {
     const verifier2 = new Verifier({
       size: 1024,
       n: 16,
-      complexity: 19,
+      complexity: COMPLEXITY,
       prefix: Buffer.from('abbadead', 'hex')
     });
 
     assert(!verifier2.check(prefixedNonce));
+  });
+
+  it('should verify nonce with higher complexity', () => {
+    assert(check(complexNonce));
+  });
+
+  it('should verify with overridable complexity', () => {
+    assert(check(complexNonce, HIGH_COMPLEXITY));
+    assert(!check(nonce1, HIGH_COMPLEXITY));
   });
 
   it('should fail on too short nonce', () => {

@@ -47,6 +47,9 @@ setInterval(() => {
 }, 60000);
 
 verifier.verify(nonce);
+
+// Optionally, complexity may be raised/lowered in specific cases
+verifier.verify(nonce, 21);
 ```
 
 ## CLI
