@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use const';
+'use strict';
 
 const path = require('path');
 const Buffer = require('buffer').Buffer;
