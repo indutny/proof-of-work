@@ -1,7 +1,7 @@
 import { Buffer } from 'buffer';
 
 export class Solver {
-  public solve(complexity: number, prefix?: Buffer);
+  public solve(complexity: number, prefix?: Buffer): Buffer;
 }
 
 export interface IVerifierOptions {
@@ -15,5 +15,5 @@ export interface IVerifierOptions {
 export class Verifier {
   constructor(options: IVerifierOptions);
 
-  public check(nonce: Buffer, complexity?: number);
+  public check(nonce: Buffer, complexity?: number): boolean;
 }
