@@ -16,4 +16,5 @@ export class Verifier {
   constructor(options: IVerifierOptions);
 
   public check(nonce: Buffer, complexity?: number): boolean;
+  public reset(): void;
 }
