@@ -9,8 +9,8 @@ const pow = require('../');
 const usage = () => {
   const _ = path.basename(process.argv[1]);
   console.error(
-      `Usage: ${_} [prefix] <complexity>                - generate nonce\n` +
-      `       ${_} verify [prefix] <complexity> [nonce] - verify nonce`);
+      `Usage: ${_} <complexity> [prefix]                - generate nonce\n` +
+      `       ${_} verify <complexity> [nonce] [prefix] - verify nonce`);
   process.exit(1);
 };
 
